@@ -1,10 +1,10 @@
 "use client";
 
 import { X } from "lucide-react";
-import type { MouseEvent, PropsWithChildren } from "react";
+import type { FormEvent, MouseEvent, PropsWithChildren } from "react";
 import { createContext, use, useEffect, useId, useRef, useState } from "react";
 
-import { cn } from "../utils";
+import { cn } from "@/shared/utils";
 import { Button } from "./Button";
 
 type DialogContextValue = {
@@ -24,8 +24,6 @@ function DialogRoot({ open, onClose, className, children }: DialogProps) {
 	const [visible, setVisible] = useState(false);
 	const titleId = useId();
 
-	// open prop에서 직접 파생 (useEffect 대신 렌더 중 상태 조정)
-	// React 권장 패턴: https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
 	if (open && !visible) {
 		setVisible(true);
 	}
@@ -46,6 +44,11 @@ function DialogRoot({ open, onClose, className, children }: DialogProps) {
 		}
 	};
 
+	const handleCancel = (e: FormEvent<HTMLDialogElement>) => {
+		e.preventDefault();
+		onClose();
+	};
+
 	const handleBackdropClick = (e: MouseEvent<HTMLDialogElement>) => {
 		if (e.target === e.currentTarget) onClose();
 	};
@@ -57,7 +60,7 @@ function DialogRoot({ open, onClose, className, children }: DialogProps) {
 			<dialog
 				ref={dialogRef}
 				aria-labelledby={titleId}
-				onClose={onClose}
+				onCancel={handleCancel}
 				onClick={handleBackdropClick}
 				onAnimationEnd={handleAnimationEnd}
 				className={cn(
