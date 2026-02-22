@@ -4,13 +4,13 @@ Next.js 16 기반의 웹 애플리케이션 스타터킷입니다. 프로덕션 
 
 ## 기술 스택
 
-| 분류 | 기술 |
-| --- | --- |
-| Framework | Next.js 16 (App Router), React 19 |
-| Language | TypeScript 5.9 (strict mode) |
-| Styling | Tailwind CSS 4, class-variance-authority |
-| Package Manager | pnpm 10 |
-| Runtime | Node.js 22+ |
+| 분류            | 기술                                     |
+| --------------- | ---------------------------------------- |
+| Framework       | Next.js 16 (App Router), React 19        |
+| Language        | TypeScript 5.9 (strict mode)             |
+| Styling         | Tailwind CSS 4, class-variance-authority |
+| Package Manager | pnpm 10                                  |
+| Runtime         | Node.js 22+                              |
 
 ## 주요 기능
 
