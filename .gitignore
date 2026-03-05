@@ -24,9 +24,10 @@ pnpm-debug.log*
 Thumbs.db
 
 # AI tools
-.omc/
 .claude/agent-memory/
+.omc/
 .serena/
+.shrimp_data/
 
 # IDE
 .idea/

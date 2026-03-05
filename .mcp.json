@@ -23,8 +23,8 @@
 			"args": ["/Users/changyu/Base/@local-mcp/mcp-shrimp-task-manager/dist/index.js"],
 			"env": {
 				"DATA_DIR": "/Users/changyu/Base/inflearn/invoice/.shrimp_data",
-				"TEMPLATES_USE": "en",
-				"ENABLE_GUI": "false"
+				"TEMPLATES_USE": "ko",
+				"ENABLE_GUI": "true"
 			}
 		}
 	}
