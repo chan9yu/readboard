@@ -25,6 +25,7 @@ Thumbs.db
 
 # AI tools
 .claude/agent-memory/
+.claude/plans/
 .omc/
 .serena/
 .shrimp_data/

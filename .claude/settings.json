@@ -13,5 +13,6 @@
 		"deny": []
 	},
 	"enabledMcpjsonServers": ["playwright"],
-	"enableAllProjectMcpServers": true
+	"enableAllProjectMcpServers": true,
+	"plansDirectory": ".claude/plans/"
 }
