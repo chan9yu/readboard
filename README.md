@@ -1,6 +1,8 @@
-# Next.js Starter Kit
+# readboard
 
-Next.js 16 기반의 웹 애플리케이션 스타터킷입니다. 프로덕션 수준의 설정과 컴포넌트가 포함되어 있어 빠르게 프로젝트를 시작할 수 있습니다.
+노션 데이터베이스 기반 독서 기록 보드.
+<br />
+노션에 입력한 책/아티클 데이터를 웹에서 상태별로 조회할 수 있는 공개 페이지 서비스.
 
 ## 기술 스택
 
@@ -9,26 +11,33 @@ Next.js 16 기반의 웹 애플리케이션 스타터킷입니다. 프로덕션 
 | Framework       | Next.js 16 (App Router), React 19        |
 | Language        | TypeScript 5.9 (strict mode)             |
 | Styling         | Tailwind CSS 4, class-variance-authority |
+| Data Source     | Notion API (`@notionhq/client`)          |
 | Package Manager | pnpm 10                                  |
 | Runtime         | Node.js 22+                              |
 
 ## 주요 기능
 
-- **레이아웃** -- Header, Footer, Container 기반의 앱 쉘 구조
-- **다크모드** -- 시스템 설정 감지, 수동 토글, FOUC 방지 처리 내장
-- **UI 컴포넌트** -- Button, Dialog, Card, Sheet, DropdownMenu 등 재사용 가능한 컴포넌트
-- **폼** -- react-hook-form + zod 기반 유효성 검증
-- **폰트** -- Pretendard(한글), Geist Mono(코드) 로컬 폰트 내장
-- **코드 품질** -- ESLint, Prettier, Lefthook pre-commit 자동화
+- **독서 목록 조회** -- 노션 DB에서 Server Component로 직접 데이터 패칭
+- **상태별 필터링** -- 읽는중 / 완독 / 읽을예정 탭 전환 (URL 쿼리 파라미터 유지)
+- **반응형 카드 그리드** -- 모바일 1열 ~ 데스크톱 4열 자동 조정
+- **다크모드** -- 시스템 설정 감지, 수동 토글, FOUC 방지
 
 ## 시작하기
 
 ```bash
 pnpm install
+cp .env.example .env.local  # 환경 변수 설정
 pnpm dev
 ```
 
 개발 서버는 `http://localhost:3100`에서 실행됩니다.
+
+## 환경 변수
+
+```bash
+NOTION_API_KEY=           # Notion Integration Secret Key
+NOTION_DATABASE_ID=       # 독서 기록 Database ID
+```
 
 ## 명령어
 
@@ -46,15 +55,19 @@ pnpm type:check   # TypeScript 타입 검사
 
 ```
 src/
-├── app/          # 라우팅 (thin layer)
-├── features/     # 기능별 모듈 (components, types, services)
+├── app/              # 라우팅 (thin layer)
+├── features/
+│   └── reading/      # 독서 기록 기능 모듈
+│       ├── components/
+│       ├── services/  # Notion API 호출
+│       └── types/
 └── shared/
-    ├── ui/       # 재사용 UI 컴포넌트
-    ├── layouts/  # 앱 쉘 (Header, Footer, Container)
-    ├── hooks/    # 공용 훅
-    ├── utils/    # 유틸리티
-    ├── styles/   # 전역 CSS, 디자인 토큰
-    └── fonts/    # 로컬 폰트 파일
+    ├── ui/           # 재사용 UI 컴포넌트
+    ├── layouts/      # 앱 쉘 (Header, Footer, Container)
+    ├── hooks/
+    ├── utils/
+    ├── styles/       # 전역 CSS, 디자인 토큰
+    └── fonts/        # 로컬 폰트 파일
 ```
 
 ## 라이선스
