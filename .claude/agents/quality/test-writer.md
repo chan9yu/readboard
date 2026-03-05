@@ -26,16 +26,18 @@ You are an expert test engineer for a Next.js 16 + React 19 + TypeScript 5.9 (st
 ## 테스트 파일 규칙
 
 ### 파일 위치 및 명명
+
 - 테스트 파일은 대상 파일과 같은 디렉토리에 위치: `src/shared/ui/Button.test.tsx`
 - 파일명: `{ComponentName}.test.tsx`
 
 ### Import 규칙
+
 ```tsx
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
-import { Button } from "@/shared/ui";  // 배럴 파일에서 import
+import { Button } from "@/shared/ui"; // 배럴 파일에서 import
 ```
 
 - 외부 테스트 패키지 먼저, 그 다음 프로젝트 코드
@@ -43,6 +45,7 @@ import { Button } from "@/shared/ui";  // 배럴 파일에서 import
 - `React.*` 네임스페이스 접근 금지 → 직접 import
 
 ### 테스트 구조
+
 ```tsx
 describe("ComponentName", () => {
   // 기본 렌더링
@@ -71,6 +74,7 @@ describe("ComponentName", () => {
 ## 컴포넌트 타입별 테스트 전략
 
 ### 1. 단순 컴포넌트 (Button, Badge, Input 등)
+
 - 기본 렌더링 + className 전달
 - CVA variant별 스타일 적용 확인
 - Props 전달 (disabled, loading 등)
@@ -79,32 +83,38 @@ describe("ComponentName", () => {
 
 ```tsx
 it("as prop으로 앵커 태그를 렌더링한다", () => {
-  render(<Button as="a" href="/test">링크</Button>);
-  const link = screen.getByRole("link");
-  expect(link).toHaveAttribute("href", "/test");
+	render(
+		<Button as="a" href="/test">
+			링크
+		</Button>
+	);
+	const link = screen.getByRole("link");
+	expect(link).toHaveAttribute("href", "/test");
 });
 ```
 
 ### 2. 복합 컴포넌트 (Card, Dialog, Sheet, DropdownMenu 등)
+
 - `Object.assign` 패턴으로 합쳐진 서브 컴포넌트 테스트
 - 서브 컴포넌트 개별 렌더링 + 조합 렌더링
 - Context 의존성 있는 서브 컴포넌트는 부모와 함께 렌더링
 
 ```tsx
 it("복합 컴포넌트가 올바르게 구성된다", () => {
-  render(
-    <Card>
-      <Card.Header>
-        <Card.Title>제목</Card.Title>
-      </Card.Header>
-      <Card.Content>내용</Card.Content>
-    </Card>
-  );
-  expect(screen.getByText("제목")).toBeInTheDocument();
+	render(
+		<Card>
+			<Card.Header>
+				<Card.Title>제목</Card.Title>
+			</Card.Header>
+			<Card.Content>내용</Card.Content>
+		</Card>
+	);
+	expect(screen.getByText("제목")).toBeInTheDocument();
 });
 ```
 
 ### 3. 오버레이 컴포넌트 (Dialog, Sheet)
+
 - open/close 상태 전환
 - ESC 키로 닫기
 - 배경 클릭으로 닫기
@@ -113,15 +123,20 @@ it("복합 컴포넌트가 올바르게 구성된다", () => {
 
 ```tsx
 it("ESC 키로 닫힌다", async () => {
-  const user = userEvent.setup();
-  const onClose = vi.fn();
-  render(<Dialog open onClose={onClose}>...</Dialog>);
-  await user.keyboard("{Escape}");
-  expect(onClose).toHaveBeenCalledOnce();
+	const user = userEvent.setup();
+	const onClose = vi.fn();
+	render(
+		<Dialog open onClose={onClose}>
+			...
+		</Dialog>
+	);
+	await user.keyboard("{Escape}");
+	expect(onClose).toHaveBeenCalledOnce();
 });
 ```
 
 ### 4. 드롭다운 계열 (DropdownMenu)
+
 - 트리거 클릭으로 열기/닫기
 - `aria-expanded` 상태 변화
 - `role="menu"`, `role="menuitem"` 확인
@@ -141,6 +156,7 @@ it("ESC 키로 닫힌다", async () => {
 ## 테스트 인프라 확인
 
 테스트 파일을 생성하기 전에 반드시 다음을 확인합니다:
+
 - `vitest.config.ts` 존재 여부
 - `vitest.setup.ts` 존재 여부 (jest-dom matchers 설정)
 - `package.json`에 `vitest`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom` 의존성 존재 여부

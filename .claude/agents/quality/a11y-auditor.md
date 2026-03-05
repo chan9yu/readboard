@@ -95,29 +95,32 @@ You are an expert accessibility (a11y) auditor specializing in React 19, Next.js
 ## 키보드 인터랙션 패턴 (WAI-ARIA Authoring Practices)
 
 ### 모달 다이얼로그
-| 키 | 동작 |
-|---|---|
-| Tab | 다음 포커스 가능 요소로 이동 (모달 내 순환) |
-| Shift+Tab | 이전 포커스 가능 요소로 이동 |
-| Escape | 모달 닫기 |
+
+| 키        | 동작                                        |
+| --------- | ------------------------------------------- |
+| Tab       | 다음 포커스 가능 요소로 이동 (모달 내 순환) |
+| Shift+Tab | 이전 포커스 가능 요소로 이동                |
+| Escape    | 모달 닫기                                   |
 
 ### 메뉴
-| 키 | 동작 |
-|---|---|
-| Enter/Space | 현재 항목 활성화 |
-| Arrow Down | 다음 항목으로 이동 |
-| Arrow Up | 이전 항목으로 이동 |
-| Home | 첫 번째 항목으로 이동 |
-| End | 마지막 항목으로 이동 |
-| Escape | 메뉴 닫기, 트리거로 포커스 |
+
+| 키          | 동작                       |
+| ----------- | -------------------------- |
+| Enter/Space | 현재 항목 활성화           |
+| Arrow Down  | 다음 항목으로 이동         |
+| Arrow Up    | 이전 항목으로 이동         |
+| Home        | 첫 번째 항목으로 이동      |
+| End         | 마지막 항목으로 이동       |
+| Escape      | 메뉴 닫기, 트리거로 포커스 |
 
 ### 탭
-| 키 | 동작 |
-|---|---|
-| Tab | 탭 리스트 진입/탈출 |
+
+| 키               | 동작                  |
+| ---------------- | --------------------- |
+| Tab              | 탭 리스트 진입/탈출   |
 | Arrow Left/Right | 이전/다음 탭으로 이동 |
-| Home | 첫 번째 탭으로 이동 |
-| End | 마지막 탭으로 이동 |
+| Home             | 첫 번째 탭으로 이동   |
+| End              | 마지막 탭으로 이동    |
 
 ## 감사 출력 형식
 
@@ -147,6 +150,7 @@ You are an expert accessibility (a11y) auditor specializing in React 19, Next.js
 ## WCAG 기준 코드 참조
 
 자주 사용되는 기준:
+
 - **1.1.1** Non-text Content: 비텍스트 콘텐츠에 대안 텍스트
 - **1.3.1** Info and Relationships: 정보와 관계가 프로그래밍 방식으로 전달
 - **1.4.3** Contrast (Minimum): 텍스트 색상 대비 4.5:1

@@ -17,21 +17,22 @@ You are an expert UI component generator for a Next.js 16 + React 19 + TypeScrip
 
 요청된 컴포넌트의 성격에 따라 참조할 파일을 결정합니다:
 
-| 컴포넌트 타입 | 참조 파일 | 특징 |
-|---|---|---|
-| 단순 UI (Badge, Input 등) | `src/shared/ui/Button.tsx` | CVA variants, 단일 export |
-| 복합 컴포넌트 (Tabs, Accordion 등) | `src/shared/ui/Card.tsx`, `Dialog.tsx` | `Object.assign` 패턴 |
-| 오버레이 (Popover, Tooltip 등) | `src/shared/ui/Dialog.tsx`, `Sheet.tsx` | Context, open/close, 애니메이션 |
-| 드롭다운 계열 (Select, Combobox 등) | `src/shared/ui/DropdownMenu.tsx` | Context, 외부 클릭, 키보드 |
+| 컴포넌트 타입                       | 참조 파일                               | 특징                            |
+| ----------------------------------- | --------------------------------------- | ------------------------------- |
+| 단순 UI (Badge, Input 등)           | `src/shared/ui/Button.tsx`              | CVA variants, 단일 export       |
+| 복합 컴포넌트 (Tabs, Accordion 등)  | `src/shared/ui/Card.tsx`, `Dialog.tsx`  | `Object.assign` 패턴            |
+| 오버레이 (Popover, Tooltip 등)      | `src/shared/ui/Dialog.tsx`, `Sheet.tsx` | Context, open/close, 애니메이션 |
+| 드롭다운 계열 (Select, Combobox 등) | `src/shared/ui/DropdownMenu.tsx`        | Context, 외부 클릭, 키보드      |
 
 ### 필수 패턴
 
 1. **Props 선언**: 반드시 별도 `type`으로 선언. 인라인 타입 금지.
+
    ```tsx
    // ✅
    type TabsProps = PropsWithChildren<{ className?: string }>;
    // ❌
-   function Tabs({ className }: { className?: string })
+   function Tabs({ className }: { className?: string });
    ```
 
 2. **Import 규칙**:
@@ -41,6 +42,7 @@ You are an expert UI component generator for a Next.js 16 + React 19 + TypeScrip
    - 같은 디렉토리의 컴포넌트: `import { Button } from "./Button"`
 
 3. **복합 컴포넌트 패턴** (`Object.assign`):
+
    ```tsx
    function TabsRoot({ ... }: TabsProps) { ... }
    function TabsList({ ... }: TabsListProps) { ... }
@@ -53,12 +55,14 @@ You are an expert UI component generator for a Next.js 16 + React 19 + TypeScrip
      Content: TabsContent,
    });
    ```
+
    - 서브 컴포넌트에 부모 prefix 필수: `TabsList`, `TabsTrigger`, `TabsContent`
    - 서브 Props에도 부모 prefix 필수: `TabsListProps`, `TabsTriggerProps`
 
 4. **`"use client"` 디렉티브**: hooks, browser API, 이벤트 핸들러를 직접 사용하는 경우에만 추가
 
 5. **CVA 사용** (variant가 있는 컴포넌트):
+
    ```tsx
    const tabVariants = cva("base-classes", {
      variants: { ... },
