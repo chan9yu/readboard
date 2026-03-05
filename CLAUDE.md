@@ -8,4 +8,3 @@
 
 - 제품 요구사항 (기능 명세, 데이터 모델): @docs/PRD.md
 - 개발 로드맵: @docs/ROADMAP.md
-- 컴포넌트/CSS/테마 컨벤션 (UI 작업 시 필독): @docs/CONVENTIONS.md
