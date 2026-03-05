@@ -7,6 +7,9 @@ settings:
 importers:
   .:
     dependencies:
+      "@notionhq/client":
+        specifier: ^5.11.1
+        version: 5.11.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -702,6 +705,11 @@ packages:
     resolution:
       { integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA== }
     engines: { node: ">=12.4.0" }
+
+  "@notionhq/client@5.11.1":
+    resolution:
+      { integrity: sha512-393XUAb4706eWKQx1xxg/tdn/rTY6+qj3PxTGyTr03D7ydO6e7B7tYyidxJCbKzNSSCVTUAth/bLoKNhm0VoUQ== }
+    engines: { node: ">=18" }
 
   "@open-draft/deferred-promise@2.2.0":
     resolution:
@@ -4300,6 +4308,8 @@ snapshots:
       fastq: 1.20.1
 
   "@nolyfill/is-core-module@1.0.39": {}
+
+  "@notionhq/client@5.11.1": {}
 
   "@open-draft/deferred-promise@2.2.0": {}
 
