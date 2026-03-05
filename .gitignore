@@ -13,6 +13,7 @@ coverage/
 
 # env files
 .env*
+!.env.example
 
 # debug logs
 npm-debug.log*
@@ -22,10 +23,21 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
+# AI tools
+.omc/
+.claude/agent-memory/
+.serena/
+
 # IDE
+.idea/
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
+
+# 에디터
+*.swp
+*.swo
+*~
 
 # misc
 *.pem
