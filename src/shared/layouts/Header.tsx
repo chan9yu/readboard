@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { ThemeToggle } from "@/shared/ui";
 import { cn } from "@/shared/utils";
 
 type HeaderProps = {
@@ -14,12 +13,8 @@ export function Header({ className }: HeaderProps) {
 		>
 			<div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
 				<Link href="/" className="text-foreground text-lg font-bold tracking-tight">
-					StarterKit
+					readboard
 				</Link>
-
-				<div className="flex items-center gap-6">
-					<ThemeToggle />
-				</div>
 			</div>
 		</header>
 	);

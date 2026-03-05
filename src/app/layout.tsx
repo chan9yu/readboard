@@ -7,7 +7,6 @@ import { ThemeProvider } from "next-themes";
 import type { PropsWithChildren } from "react";
 
 import { Footer, Header } from "@/shared/layouts";
-import { Toaster } from "@/shared/ui";
 
 const pretendard = localFont({
 	src: "../shared/fonts/PretendardVariable.woff2",
@@ -22,8 +21,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "Next.js Starter Kit",
-	description: "Next.js 16 + TypeScript + TailwindCSS v4 스타터킷"
+	title: "readboard — 독서 기록 보드",
+	description: "노션 데이터베이스의 독서 기록을 보기 좋게 공유하는 서비스"
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
@@ -36,7 +35,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
 						<main className="flex-1">{children}</main>
 						<Footer />
 					</div>
-					<Toaster />
 				</ThemeProvider>
 			</body>
 		</html>
