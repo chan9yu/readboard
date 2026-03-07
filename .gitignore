@@ -10,6 +10,7 @@ build/
 
 # testing
 coverage/
+.playwright-mcp/
 
 # env files
 .env*
