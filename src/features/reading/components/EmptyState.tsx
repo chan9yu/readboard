@@ -1,11 +1,18 @@
-// 빈 상태 메시지
-// 선택한 상태에 해당 항목이 없을 때 표시
-// TODO: 구현 예정
+import { BookOpen } from "lucide-react";
 
-export function EmptyState() {
+import type { StatusFilter } from "../types";
+
+type EmptyStateProps = {
+	filter: StatusFilter;
+};
+
+export function EmptyState({ filter }: EmptyStateProps) {
+	const message = filter === "all" ? "아직 등록된 항목이 없습니다." : "이 상태의 항목이 없습니다.";
+
 	return (
-		<div className="text-muted-foreground flex flex-col items-center gap-2 py-16 text-center">
-			<p>아직 등록된 항목이 없습니다.</p>
+		<div className="text-muted-foreground flex flex-col items-center gap-3 py-16 text-center">
+			<BookOpen className="size-12" />
+			<p>{message}</p>
 		</div>
 	);
 }
