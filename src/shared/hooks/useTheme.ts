@@ -14,17 +14,16 @@ export function useTheme() {
 	const { theme, setTheme: setNextTheme, resolvedTheme } = useNextTheme();
 	const mounted = useSyncExternalStore(emptySubscribe, getClientSnapshot, getServerSnapshot);
 
-	const setTheme = (newTheme: Theme) => {
-		const root = document.documentElement;
+	function setTheme(newTheme: Theme) {
+		if (!document.startViewTransition) {
+			setNextTheme(newTheme);
+			return;
+		}
 
-		const handleTransitionEnd = () => {
-			root.classList.remove("theme-transitioning");
-		};
-
-		root.classList.add("theme-transitioning");
-		setNextTheme(newTheme);
-		root.addEventListener("transitionend", handleTransitionEnd, { once: true });
-	};
+		document.startViewTransition(() => {
+			setNextTheme(newTheme);
+		});
+	}
 
 	return {
 		theme: (theme ?? "system") as Theme,

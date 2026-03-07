@@ -30,7 +30,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
 	return (
 		<html lang="ko" suppressHydrationWarning>
 			<body className={`${pretendard.variable} ${geistMono.variable} font-sans antialiased`}>
-				<ThemeProvider attribute="class" defaultTheme="system">
+				<ThemeProvider attribute="class" defaultTheme="system" enableColorScheme={false}>
 					<div className="flex min-h-dvh flex-col">
 						<Header />
 						<main className="flex-1">{children}</main>
