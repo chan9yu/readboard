@@ -24,8 +24,8 @@ export async function fetchReadingList() {
 	cacheLife("hours");
 
 	try {
-		const response = await notion.databases.query({
-			database_id: NOTION_DATABASE_ID,
+		const response = await notion.dataSources.query({
+			data_source_id: NOTION_DATABASE_ID,
 			sorts: [{ property: "등록일", direction: "descending" }],
 			page_size: 100
 		});
