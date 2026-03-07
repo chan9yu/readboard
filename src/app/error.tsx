@@ -1,5 +1,6 @@
 "use client";
 
+import { AlertCircle } from "lucide-react";
 import { useEffect } from "react";
 
 import { Container } from "@/shared/layouts/Container";
@@ -9,7 +10,6 @@ type ErrorProps = {
 	reset: () => void;
 };
 
-// Notion API 오류 시 에러 UI 표시
 export default function Error({ error, reset }: ErrorProps) {
 	useEffect(() => {
 		console.error(error);
@@ -17,11 +17,22 @@ export default function Error({ error, reset }: ErrorProps) {
 
 	return (
 		<Container>
-			<section className="py-10">
-				<div className="border-destructive bg-destructive/10 rounded-lg border p-4">
-					<p className="font-semibold">데이터를 불러오는 데 실패했습니다.</p>
-					<p className="text-muted-foreground text-sm">{error.message || "Notion API 호출 중 오류가 발생했습니다."}</p>
-					<button onClick={reset} className="mt-3 text-sm underline underline-offset-4">
+			<section role="alert" className="py-10">
+				<div className="flex flex-col items-center gap-4 py-10 text-center">
+					<div className="bg-destructive/10 flex size-20 items-center justify-center rounded-full">
+						<AlertCircle aria-hidden="true" className="text-destructive size-10" />
+					</div>
+					<div className="space-y-1">
+						<p className="text-foreground font-semibold">데이터를 불러오는 데 실패했습니다</p>
+						<p className="text-muted-foreground text-sm">
+							{error.message || "Notion API 호출 중 오류가 발생했습니다."}
+						</p>
+					</div>
+					<button
+						type="button"
+						onClick={reset}
+						className="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring focus-visible:ring-offset-background mt-2 cursor-pointer rounded-full px-6 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+					>
 						다시 시도
 					</button>
 				</div>
