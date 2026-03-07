@@ -13,14 +13,14 @@ export type ReadingItem = {
 	title: string;
 	author: string | null;
 	status: ReadingStatus;
-	rating: number | null; // 1~5, null이면 미표시
+	rating: number | null;
 	memo: string | null;
 	coverImageUrl: string | null;
 	categories: string[];
-	registeredAt: string | null; // ISO 8601 날짜 문자열
+	registeredAt: string | null;
 };
 
 export type ReadingListData = {
 	items: ReadingItem[];
-	fetchedAt: string; // 캐시 시각 (디버깅용)
+	fetchedAt: string;
 };

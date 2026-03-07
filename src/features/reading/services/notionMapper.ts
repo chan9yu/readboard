@@ -1,5 +1,7 @@
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
+import { logger } from "@/shared/utils/logger";
+
 import type { ReadingStatus } from "../types";
 
 type Property = PageObjectResponse["properties"][string];
@@ -58,9 +60,13 @@ function getDate(prop: Property | undefined) {
 export function mapPageToReadingItem(page: PageObjectResponse) {
 	const props = page.properties;
 	const rawStatus = getSelect(props["상태"]);
-	const status: ReadingStatus = VALID_STATUSES.includes(rawStatus as ReadingStatus)
-		? (rawStatus as ReadingStatus)
-		: "읽을예정";
+	const isValid = VALID_STATUSES.includes(rawStatus as ReadingStatus);
+
+	if (!isValid) {
+		logger.warn("알 수 없는 독서 상태", { rawStatus, pageId: page.id });
+	}
+
+	const status: ReadingStatus = isValid ? (rawStatus as ReadingStatus) : "읽을예정";
 
 	return {
 		id: page.id,
