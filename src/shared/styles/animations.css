@@ -48,6 +48,15 @@
 	}
 }
 
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+
 /* 네이티브 dialog 스타일 */
 dialog::backdrop {
 	background-color: oklch(0 0 0 / 0.8);
