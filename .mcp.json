@@ -20,9 +20,9 @@
 		},
 		"shrimp-task-manager": {
 			"command": "node",
-			"args": ["/Users/changyu/Base/@local-mcp/mcp-shrimp-task-manager/dist/index.js"],
+			"args": ["/Users/chan9yu/Base/@local-mcp/mcp-shrimp-task-manager/dist/index.js"],
 			"env": {
-				"DATA_DIR": "/Users/changyu/Base/inflearn/invoice/.shrimp_data",
+				"DATA_DIR": "/Users/chan9yu/Base/inflearn/readboard/.shrimp_data",
 				"TEMPLATES_USE": "ko",
 				"ENABLE_GUI": "true"
 			}
