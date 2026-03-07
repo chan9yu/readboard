@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 
-import { ReadingBoard } from "@/features/reading";
+import { ReadingBoard } from "@/features/reading/components/ReadingBoard";
 import { fetchReadingList } from "@/features/reading/services/notionClient";
-import { Container } from "@/shared/layouts";
+import { Container } from "@/shared/layouts/Container";
 
 // TODO: 통계 요약 컴포넌트 구현 후 교체
 async function ReadingBoardSection() {

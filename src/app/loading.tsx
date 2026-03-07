@@ -1,5 +1,5 @@
-import { ReadingCardSkeleton } from "@/features/reading";
-import { Container } from "@/shared/layouts";
+import { ReadingCardSkeleton } from "@/features/reading/components/ReadingCardSkeleton";
+import { Container } from "@/shared/layouts/Container";
 
 // F003 — 로딩 스켈레톤: 카드 형태 12개 그리드
 export default function Loading() {

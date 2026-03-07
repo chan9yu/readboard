@@ -6,7 +6,8 @@ import localFont from "next/font/local";
 import { ThemeProvider } from "next-themes";
 import type { PropsWithChildren } from "react";
 
-import { Footer, Header } from "@/shared/layouts";
+import { Footer } from "@/shared/layouts/Footer";
+import { Header } from "@/shared/layouts/Header";
 
 const pretendard = localFont({
 	src: "../shared/fonts/PretendardVariable.woff2",

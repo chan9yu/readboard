@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { cn } from "@/shared/utils";
+import { cn } from "@/shared/utils/cn";
 
 type HeaderProps = {
 	className?: string;

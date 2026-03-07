@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-import { Container } from "@/shared/layouts";
+import { Container } from "@/shared/layouts/Container";
 
 type ErrorProps = {
 	error: Error & { digest?: string };
