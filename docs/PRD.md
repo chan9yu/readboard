@@ -297,34 +297,49 @@ src/
 │   ├── layout.tsx              # 기존 루트 레이아웃 (Header, Footer 포함)
 │   ├── page.tsx                # 독서 목록 페이지 진입점 (Server Component, Suspense 경계 포함)
 │   ├── loading.tsx             # 스켈레톤 UI (F003)
-│   └── error.tsx               # 에러 UI
+│   └── error.tsx               # 에러 UI (구조화된 에러 로깅)
 │
-└── features/
-    └── reading/
-        ├── components/
-        │   ├── ReadingBoard.tsx         # 탭 + 카드 그리드 컨테이너 ("use client")
-        │   ├── ReadingCard.tsx          # 개별 도서/아티클 카드
-        │   ├── ReadingCardSkeleton.tsx  # 카드 스켈레톤
-        │   ├── StatusTabs.tsx           # 상태 필터 탭 ("use client")
-        │   └── EmptyState.tsx           # 빈 상태 메시지
-        ├── services/
-        │   ├── notionClient.ts          # Notion API 호출 (Server 전용)
-        │   └── notionMapper.ts          # API 응답 → ReadingItem 변환
-        └── types/
-            └── index.ts                 # ReadingItem, ReadingStatus 등
+├── features/
+│   └── reading/
+│       ├── components/
+│       │   ├── ReadingBoard.tsx         # 탭 + 카드 그리드 컨테이너 ("use client")
+│       │   ├── ReadingCard.tsx          # 개별 도서/아티클 카드
+│       │   ├── ReadingCardSkeleton.tsx  # 카드 스켈레톤
+│       │   ├── StarRating.tsx           # 별점 표시 (1~5점)
+│       │   ├── StatsSummary.tsx         # 상태별 통계 요약 (N권 전체/완독/읽는중)
+│       │   ├── StatusTabItem.tsx        # 개별 탭 버튼
+│       │   ├── StatusTabs.tsx           # 상태 필터 탭 ("use client")
+│       │   └── EmptyState.tsx           # 빈 상태 메시지
+│       ├── services/
+│       │   ├── notionClient.ts          # Notion API 호출 (Server 전용, Rate Limiting 적용)
+│       │   └── notionMapper.ts          # API 응답 → ReadingItem 변환
+│       ├── utils/
+│       │   └── statusFilter.ts          # 필터 검증, 상태 카운트, 항목 필터링
+│       └── types/
+│           └── index.ts                 # ReadingItem, ReadingStatus 등
+│
+└── shared/
+    └── utils/
+        ├── cn.ts                        # Tailwind 클래스 병합 유틸
+        ├── logger.ts                    # 구조화된 JSON 로거 (info/warn/error)
+        └── rateLimiter.ts               # 슬라이딩 윈도우 Rate Limiter
 ```
 
 ### 컴포넌트 역할 분리
 
-| 컴포넌트       | 렌더링       | 역할                                          |
-| -------------- | ------------ | --------------------------------------------- |
-| `app/page.tsx` | Server       | Notion API 호출, `ReadingBoard`에 데이터 전달 |
-| `ReadingBoard` | Client       | URL 쿼리 파라미터 읽기/쓰기, 필터 상태 관리   |
-| `StatusTabs`   | Client       | 탭 클릭 → URL 쿼리 파라미터 업데이트          |
-| `ReadingCard`  | Client (주1) | 카드 UI 렌더링 (순수 표현 컴포넌트)           |
-| `notionClient` | Server only  | `@notionhq/client` SDK 호출                   |
+| 컴포넌트        | 렌더링       | 역할                                          |
+| --------------- | ------------ | --------------------------------------------- |
+| `app/page.tsx`  | Server       | Notion API 호출, `ReadingBoard`에 데이터 전달 |
+| `ReadingBoard`  | Client       | URL 쿼리 파라미터 읽기/쓰기, 필터 상태 관리   |
+| `StatusTabs`    | Client       | 탭 목록 렌더링 및 필터 변경 콜백 전달         |
+| `StatusTabItem` | Client (주1) | 개별 탭 버튼 UI 및 클릭 핸들링                |
+| `StatsSummary`  | Client (주1) | 상태별 통계 요약 (N권 전체/완독/읽는중)       |
+| `ReadingCard`   | Client (주1) | 카드 UI 렌더링 (순수 표현 컴포넌트)           |
+| `StarRating`    | Client (주1) | 별점 아이콘 렌더링 (1~5점)                    |
+| `EmptyState`    | Client (주1) | 필터별 빈 상태 메시지 표시                    |
+| `notionClient`  | Server only  | `@notionhq/client` SDK 호출                   |
 
-> **주1**: `ReadingCard`는 `"use client"` 선언이 없는 순수 표현 컴포넌트이지만, Client Component인 `ReadingBoard` 하위에서 렌더링되므로 실제로는 Client로 동작합니다. Server Component로 유지하려면 `ReadingBoard`의 `children` prop으로 주입하는 composition 패턴이 필요하나, MVP에서는 카드가 경량이므로 Client 동작을 허용합니다.
+> **주1**: `"use client"` 선언이 없는 순수 표현 컴포넌트이지만, Client Component 하위에서 렌더링되므로 실제로는 Client로 동작합니다.
 
 ---
 
