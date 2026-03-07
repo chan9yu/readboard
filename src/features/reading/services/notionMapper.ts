@@ -1,11 +1,76 @@
-// Notion PageObjectResponse → ReadingItem 변환 로직
-// @notionhq/client 설치 후 구현 예정
+import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-// 매핑 규칙:
-// properties['제목'].title[0].plain_text
-// properties['저자'].rich_text[0]?.plain_text ?? null
-// properties['상태'].select?.name as ReadingStatus
-// properties['평점'].number ?? null
-// properties['표지 이미지'].url ?? null
-// properties['카테고리'].multi_select.map(s => s.name)
-// properties['등록일'].date?.start ?? null
+import type { ReadingItem, ReadingStatus } from "../types";
+
+type Property = PageObjectResponse["properties"][string];
+
+const VALID_STATUSES: ReadingStatus[] = ["읽는중", "완독", "읽을예정"];
+
+function getTitle(prop: Property | undefined): string {
+	if (prop?.type === "title") {
+		return prop.title.map((t) => t.plain_text).join("");
+	}
+	return "";
+}
+
+function getRichText(prop: Property | undefined): string | null {
+	if (prop?.type === "rich_text" && prop.rich_text.length > 0) {
+		return prop.rich_text.map((t) => t.plain_text).join("");
+	}
+	return null;
+}
+
+function getSelect(prop: Property | undefined): string | null {
+	if (prop?.type === "select") {
+		return prop.select?.name ?? null;
+	}
+	return null;
+}
+
+function getNumber(prop: Property | undefined): number | null {
+	if (prop?.type === "number") {
+		return prop.number;
+	}
+	return null;
+}
+
+function getUrl(prop: Property | undefined): string | null {
+	if (prop?.type === "url") {
+		return prop.url;
+	}
+	return null;
+}
+
+function getMultiSelect(prop: Property | undefined): string[] {
+	if (prop?.type === "multi_select") {
+		return prop.multi_select.map((s) => s.name);
+	}
+	return [];
+}
+
+function getDate(prop: Property | undefined): string | null {
+	if (prop?.type === "date") {
+		return prop.date?.start ?? null;
+	}
+	return null;
+}
+
+export function mapPageToReadingItem(page: PageObjectResponse): ReadingItem {
+	const props = page.properties;
+	const rawStatus = getSelect(props["상태"]);
+	const status: ReadingStatus = VALID_STATUSES.includes(rawStatus as ReadingStatus)
+		? (rawStatus as ReadingStatus)
+		: "읽을예정";
+
+	return {
+		id: page.id,
+		title: getTitle(props["제목"]),
+		author: getRichText(props["저자"]),
+		status,
+		rating: getNumber(props["평점"]),
+		memo: getRichText(props["메모"]),
+		coverImageUrl: getUrl(props["표지 이미지"]),
+		categories: getMultiSelect(props["카테고리"]),
+		registeredAt: getDate(props["등록일"])
+	};
+}
