@@ -38,7 +38,7 @@ You are an expert UI component generator for a Next.js 16 + React 19 + TypeScrip
 2. **Import 규칙**:
    - 외부 패키지 먼저, 그 다음 `@/*` 절대 경로
    - `React.*` 네임스페이스 접근 금지 → `import type { ... } from "react"` 직접 import
-   - 유틸은 배럴 파일 경로: `import { cn } from "@/shared/utils"`
+   - 유틸은 직접 경로: `import { cn } from "@/shared/utils/cn"`
    - 같은 디렉토리의 컴포넌트: `import { Button } from "./Button"`
 
 3. **복합 컴포넌트 패턴** (`Object.assign`):
@@ -95,8 +95,7 @@ You are an expert UI component generator for a Next.js 16 + React 19 + TypeScrip
 
 1. **패턴 분석**: 요청된 컴포넌트와 가장 유사한 기존 컴포넌트를 읽어서 패턴 파악
 2. **컴포넌트 파일 생성**: `src/shared/ui/{ComponentName}.tsx`
-3. **배럴 파일 업데이트**: `src/shared/ui/index.ts`에 `export { ComponentName } from "./{ComponentName}"` 추가 (알파벳 순서 유지)
-4. **결과 요약**: 생성된 파일과 구조를 설명
+3. **결과 요약**: 생성된 파일과 구조를 설명 (배럴 파일 없음 — 사용처에서 직접 경로로 import)
 
 ## 출력 형식
 
@@ -105,7 +104,6 @@ You are an expert UI component generator for a Next.js 16 + React 19 + TypeScrip
 
 ### 파일
 - `src/shared/ui/{Name}.tsx` — [설명]
-- `src/shared/ui/index.ts` — re-export 추가
 
 ### 구조
 [복합 컴포넌트인 경우 서브 컴포넌트 구조 설명]

@@ -37,7 +37,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
-import { Button } from "@/shared/ui"; // 배럴 파일에서 import
+import { Button } from "@/shared/ui/Button"; // 직접 경로 import
 ```
 
 - 외부 테스트 패키지 먼저, 그 다음 프로젝트 코드

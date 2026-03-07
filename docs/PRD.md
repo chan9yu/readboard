@@ -306,14 +306,12 @@ src/
         │   ├── ReadingCard.tsx          # 개별 도서/아티클 카드
         │   ├── ReadingCardSkeleton.tsx  # 카드 스켈레톤
         │   ├── StatusTabs.tsx           # 상태 필터 탭 ("use client")
-        │   ├── EmptyState.tsx           # 빈 상태 메시지
-        │   └── index.ts
+        │   └── EmptyState.tsx           # 빈 상태 메시지
         ├── services/
         │   ├── notionClient.ts          # Notion API 호출 (Server 전용)
         │   └── notionMapper.ts          # API 응답 → ReadingItem 변환
-        ├── types/
-        │   └── index.ts                 # ReadingItem, ReadingStatus 등
-        └── index.ts
+        └── types/
+            └── index.ts                 # ReadingItem, ReadingStatus 등
 ```
 
 ### 컴포넌트 역할 분리
@@ -365,7 +363,7 @@ pnpm add @notionhq/client
 
 - `lucide-react` — Star 평점 아이콘, 빈 상태 아이콘
 - `clsx` + `tailwind-merge` → `cn()` — 조건부 클래스
-- 기존 UI 컴포넌트: `Card`, `Badge`, `Skeleton`, `Alert`
+- 기존 UI 컴포넌트: `Card`, `Badge`, `Skeleton` (직접 경로 import: `from "@/shared/ui/Card"` 등)
 
 ---
 

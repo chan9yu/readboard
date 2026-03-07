@@ -12,7 +12,7 @@ MVP는 단일 페이지(독서 목록)로 구성되며, Notion API 연동 -> UI 
 
 | Phase   | 목표                     | 주요 기능                                     | 복잡도 | 선행 조건                         |
 | ------- | ------------------------ | --------------------------------------------- | ------ | --------------------------------- |
-| Phase 1 | 기반 구조 및 타입 시스템 | 프로젝트 스캐폴딩, 타입 정의, 배럴 파일       | Low    | 없음                              |
+| Phase 1 | 기반 구조 및 타입 시스템 | 프로젝트 스캐폴딩, 타입 정의                  | Low    | 없음                              |
 | Phase 2 | Notion API 연동          | SDK 설치, API 클라이언트, 데이터 매퍼         | Medium | Phase 1                           |
 | Phase 3 | 카드 UI 컴포넌트         | ReadingCard, ReadingCardSkeleton, EmptyState  | Medium | Phase 1 (**Phase 2와 병렬 가능**) |
 | Phase 4 | 필터링 및 보드 컴포넌트  | StatusTabs, ReadingBoard, URL 쿼리 연동       | High   | Phase 3                           |
@@ -113,20 +113,21 @@ MVP는 단일 페이지(독서 목록)로 구성되며, Notion API 연동 -> UI 
 **목표:** 프로젝트 스캐폴딩과 도메인 타입이 정의되어 후속 개발의 기초가 마련된다
 **선행 조건:** 없음
 **순서 근거:** 타입과 디렉토리 구조는 모든 후속 Phase의 공통 기반이므로 최우선 배치
-**완료 기준:** `src/features/reading/` 디렉토리 구조가 생성되고, 모든 타입이 정의되며, 배럴 파일이 올바르게 re-export 된다
+**완료 기준:** `src/features/reading/` 디렉토리 구조가 생성되고, 모든 타입이 정의된다
 
 ### 태스크
 
 - [x] Task 001: `ReadingStatus`, `StatusFilter`, `STATUS_MAP`, `ReadingItem`, `ReadingListData` 타입 정의 (`src/features/reading/types/index.ts`)
-- [x] Task 002: `src/features/reading/components/index.ts` 배럴 파일 생성 및 컴포넌트 re-export 설정
-- [x] Task 003: `src/features/reading/index.ts` 루트 배럴 파일 생성
-- [x] Task 004: `src/app/error.tsx` 에러 바운더리 페이지 기본 구현 (`Alert` 컴포넌트 활용)
+- [x] ~~Task 002: 배럴 파일 생성~~ (컨벤션 변경으로 삭제됨 — 배럴 파일 사용 금지, 직접 경로 import)
+- [x] ~~Task 003: 루트 배럴 파일 생성~~ (컨벤션 변경으로 삭제됨)
+- [x] Task 004: `src/app/error.tsx` 에러 바운더리 페이지 기본 구현
 - [x] Task 005: `src/app/loading.tsx` 로딩 페이지 기본 구조 생성
 
 ### 기술 노트
 
 - 타입 정의는 PRD 6절 데이터 모델을 그대로 반영한다
-- 배럴 파일은 컴포넌트만 re-export하고, 타입은 직접 import 경로를 사용한다 (프로젝트 컨벤션)
+- 배럴 파일(index.ts) 사용 금지 — 항상 직접 경로로 import (`from "@/shared/ui/Badge"` 등)
+- shadcn 컴포넌트 커스터마이징 규칙은 `.claude/rules/shadcn.md` 참조
 
 ---
 
@@ -198,7 +199,7 @@ MVP는 단일 페이지(독서 목록)로 구성되며, Notion API 연동 -> UI 
 
 - `ReadingCard`는 `"use client"` 선언 없이 순수 표현 컴포넌트로 유지한다 (Client Component인 `ReadingBoard` 하위에서 렌더링)
 - 표지 이미지에 `next/image` 대신 `<img>` 태그를 사용한다 (외부 도메인 설정 회피, PRD 명시)
-- `Card` 복합 컴포넌트는 `Object.assign` 패턴을 사용한다 (프로젝트 컨벤션)
+- `Card` 복합 컴포넌트는 `Object.assign` 패턴을 사용한다 (각 서브컴포넌트도 Props type 별도 선언, `.claude/rules/shadcn.md` 참조)
 
 ---
 

@@ -18,7 +18,7 @@ You are an elite code reviewer with deep expertise in React 19, Next.js 16 (App 
 ### 1. TypeScript 규칙 준수
 
 - strict mode 준수 여부
-- `@/*` 절대 경로 import 사용 (상대 경로 `../`, `./` 사용 금지, barrel file 내부 re-export 제외)
+- `@/*` 절대 경로 import 사용 (상대 경로 `../`, `./` 사용 금지, 같은 디렉토리 내 상대 import는 허용)
 - 리턴 타입은 자동 추론에 의존 (불필요한 명시적 리턴 타입 금지)
 - `React.MouseEvent` 등 `React.*` 네임스페이스 접근 금지 → `import type { MouseEvent } from "react"` 직접 import
 - 불필요한 주석 존재 여부
@@ -37,7 +37,7 @@ You are an elite code reviewer with deep expertise in React 19, Next.js 16 (App 
 - Props는 반드시 별도 type으로 선언 (인라인 타입 금지: `({ className }: { className?: string })` ❌)
 - 파일당 하나의 컴포넌트만 export
 - Props 미노출, `ComponentProps<typeof C>` 사용
-- 배럴 파일(index.ts)은 컴포넌트만 re-export (타입 re-export 금지, 도메인 타입은 예외)
+- 배럴 파일(index.ts) 사용 금지 — 직접 경로로 import (`from "@/shared/ui/Badge"`)
 - 복합 컴포넌트: `Object.assign` 패턴
 - 복합 컴포넌트 서브 함수/타입에 부모 prefix 필수
 - `"use client"`: hooks/browser API/이벤트 핸들러 직접 사용 시에만
@@ -46,8 +46,7 @@ You are an elite code reviewer with deep expertise in React 19, Next.js 16 (App 
 
 - Named exports 우선 (프레임워크 요구사항 예외)
 - 순서: external → internal (`@/*`)
-- 배럴 파일(index.ts)로 모듈 간 접근 (직접 파일 경로 import 금지)
-- 새 모듈 추가 시 배럴 파일에 re-export 추가 여부 확인
+- 직접 파일 경로로 import (`from "@/shared/ui/Badge"`, 배럴 파일 사용 금지)
 
 ### 5. CSS/스타일
 
@@ -112,6 +111,5 @@ You are an elite code reviewer with deep expertise in React 19, Next.js 16 (App 
 
 1. 변경된 파일 목록을 파악합니다.
 2. 각 파일을 읽고 체크리스트에 따라 분석합니다.
-3. 관련 배럴 파일(index.ts)에 새 모듈이 적절히 re-export되었는지 확인합니다.
-4. 파일 간 의존성과 import 경로의 적절성을 검증합니다.
-5. 리뷰 결과를 정해진 형식으로 출력합니다.
+3. 파일 간 의존성과 import 경로의 적절성을 검증합니다 (배럴 파일 사용 금지, 직접 경로 import 확인).
+4. 리뷰 결과를 정해진 형식으로 출력합니다.
