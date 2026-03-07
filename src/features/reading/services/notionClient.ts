@@ -1,17 +1,16 @@
-// Server 전용 — "use client" 선언 금지
-
 import { Client, isFullPage } from "@notionhq/client";
 import { cacheLife } from "next/cache";
 
-import type { ReadingListData } from "../types";
+import { logger } from "@/shared/utils/logger";
+
 import { mapPageToReadingItem } from "./notionMapper";
 
-// Task 010: 모듈 로드 시점에서 환경 변수 검증 (빌드 타임 오류로 조기 감지)
-function getEnvOrThrow(key: string): string {
+function getEnvOrThrow(key: string) {
 	const value = process.env[key];
 	if (!value) {
 		throw new Error(`${key} 환경 변수가 설정되지 않았습니다.`);
 	}
+
 	return value;
 }
 
@@ -20,18 +19,30 @@ const NOTION_DATABASE_ID = getEnvOrThrow("NOTION_DATABASE_ID");
 
 const notion = new Client({ auth: NOTION_API_KEY });
 
-export async function fetchReadingList(): Promise<ReadingListData> {
+export async function fetchReadingList() {
 	"use cache";
 	cacheLife("hours");
 
-	const response = await notion.dataSources.query({
-		data_source_id: NOTION_DATABASE_ID,
-		sorts: [{ property: "등록일", direction: "descending" }],
-		page_size: 100
-	});
+	try {
+		const response = await notion.databases.query({
+			database_id: NOTION_DATABASE_ID,
+			sorts: [{ property: "등록일", direction: "descending" }],
+			page_size: 100
+		});
 
-	return {
-		items: response.results.filter(isFullPage).map(mapPageToReadingItem),
-		fetchedAt: new Date().toISOString()
-	};
+		const items = response.results.filter(isFullPage).map(mapPageToReadingItem);
+
+		logger.info("Notion API 조회 성공", { itemCount: items.length });
+
+		return {
+			items,
+			fetchedAt: new Date().toISOString()
+		};
+	} catch (error) {
+		logger.error("Notion API 조회 실패", {
+			error: error instanceof Error ? error.message : String(error),
+			databaseId: NOTION_DATABASE_ID
+		});
+		throw error;
+	}
 }

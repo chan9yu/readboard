@@ -1,61 +1,61 @@
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-import type { ReadingItem, ReadingStatus } from "../types";
+import type { ReadingStatus } from "../types";
 
 type Property = PageObjectResponse["properties"][string];
 
 const VALID_STATUSES: ReadingStatus[] = ["읽는중", "완독", "읽을예정"];
 
-function getTitle(prop: Property | undefined): string {
+function getTitle(prop: Property | undefined) {
 	if (prop?.type === "title") {
 		return prop.title.map((t) => t.plain_text).join("");
 	}
 	return "";
 }
 
-function getRichText(prop: Property | undefined): string | null {
+function getRichText(prop: Property | undefined) {
 	if (prop?.type === "rich_text" && prop.rich_text.length > 0) {
 		return prop.rich_text.map((t) => t.plain_text).join("");
 	}
 	return null;
 }
 
-function getSelect(prop: Property | undefined): string | null {
+function getSelect(prop: Property | undefined) {
 	if (prop?.type === "select") {
 		return prop.select?.name ?? null;
 	}
 	return null;
 }
 
-function getNumber(prop: Property | undefined): number | null {
+function getNumber(prop: Property | undefined) {
 	if (prop?.type === "number") {
 		return prop.number;
 	}
 	return null;
 }
 
-function getUrl(prop: Property | undefined): string | null {
+function getUrl(prop: Property | undefined) {
 	if (prop?.type === "url") {
 		return prop.url;
 	}
 	return null;
 }
 
-function getMultiSelect(prop: Property | undefined): string[] {
+function getMultiSelect(prop: Property | undefined) {
 	if (prop?.type === "multi_select") {
 		return prop.multi_select.map((s) => s.name);
 	}
 	return [];
 }
 
-function getDate(prop: Property | undefined): string | null {
+function getDate(prop: Property | undefined) {
 	if (prop?.type === "date") {
 		return prop.date?.start ?? null;
 	}
 	return null;
 }
 
-export function mapPageToReadingItem(page: PageObjectResponse): ReadingItem {
+export function mapPageToReadingItem(page: PageObjectResponse) {
 	const props = page.properties;
 	const rawStatus = getSelect(props["상태"]);
 	const status: ReadingStatus = VALID_STATUSES.includes(rawStatus as ReadingStatus)
