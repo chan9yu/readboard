@@ -2,13 +2,19 @@ import { Skeleton } from "@/shared/ui/Skeleton";
 
 export function ReadingCardSkeleton() {
 	return (
-		<div className="bg-card flex flex-col overflow-hidden rounded-xl border shadow-sm">
+		<div
+			aria-hidden="true"
+			className="bg-card border-border/60 flex flex-col overflow-hidden rounded-2xl border shadow-sm"
+		>
 			<Skeleton className="aspect-3/4 w-full rounded-none" />
 
 			<div className="flex flex-col gap-2 p-4">
 				<div className="flex items-start justify-between gap-2">
-					<Skeleton className="h-4 w-3/4" />
-					<Skeleton className="h-5 w-12 rounded-full" />
+					<div className="flex flex-1 flex-col gap-1">
+						<Skeleton className="h-4 w-full" />
+						<Skeleton className="h-4 w-2/3" />
+					</div>
+					<Skeleton className="h-5 w-12 shrink-0 rounded-full" />
 				</div>
 
 				<Skeleton className="h-3 w-1/2" />
