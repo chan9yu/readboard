@@ -15,11 +15,6 @@ export function useTheme() {
 	const mounted = useSyncExternalStore(emptySubscribe, getClientSnapshot, getServerSnapshot);
 
 	const setTheme = (newTheme: Theme) => {
-		if (typeof document === "undefined") {
-			setNextTheme(newTheme);
-			return;
-		}
-
 		const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 		if (!document.startViewTransition || prefersReducedMotion) {

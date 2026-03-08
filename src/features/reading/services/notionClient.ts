@@ -14,18 +14,17 @@ function getEnvOrThrow(key: string) {
 	return value;
 }
 
-const NOTION_API_KEY = getEnvOrThrow("NOTION_API_KEY");
-const NOTION_DATABASE_ID = getEnvOrThrow("NOTION_DATABASE_ID");
-
-const notion = new Client({ auth: NOTION_API_KEY });
-
 export async function fetchReadingList() {
 	"use cache";
 	cacheLife("hours");
 
+	const apiKey = getEnvOrThrow("NOTION_API_KEY");
+	const databaseId = getEnvOrThrow("NOTION_DATABASE_ID");
+	const notion = new Client({ auth: apiKey });
+
 	try {
 		const response = await notion.dataSources.query({
-			data_source_id: NOTION_DATABASE_ID,
+			data_source_id: databaseId,
 			sorts: [{ property: "등록일", direction: "descending" }],
 			page_size: 100
 		});

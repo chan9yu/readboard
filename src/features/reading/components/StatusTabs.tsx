@@ -67,7 +67,6 @@ export function StatusTabs({ currentFilter, counts, onFilterChange }: StatusTabs
 						role="tab"
 						type="button"
 						aria-selected={isActive}
-						aria-label={`${label} ${counts[filter]}권`}
 						tabIndex={isActive ? 0 : -1}
 						onClick={handleClick(filter)}
 						onKeyDown={handleKeyDown(index)}
@@ -76,7 +75,9 @@ export function StatusTabs({ currentFilter, counts, onFilterChange }: StatusTabs
 							isActive ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
 						)}
 					>
-						{label} ({counts[filter]})
+						{label}
+						<span aria-hidden="true"> ({counts[filter]})</span>
+						<span className="sr-only">{counts[filter]}권</span>
 					</button>
 				);
 			})}
