@@ -14,8 +14,15 @@ export function useTheme() {
 	const { theme, setTheme: setNextTheme, resolvedTheme } = useNextTheme();
 	const mounted = useSyncExternalStore(emptySubscribe, getClientSnapshot, getServerSnapshot);
 
-	function setTheme(newTheme: Theme) {
-		if (!document.startViewTransition) {
+	const setTheme = (newTheme: Theme) => {
+		if (typeof document === "undefined") {
+			setNextTheme(newTheme);
+			return;
+		}
+
+		const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+		if (!document.startViewTransition || prefersReducedMotion) {
 			setNextTheme(newTheme);
 			return;
 		}
@@ -23,7 +30,7 @@ export function useTheme() {
 		document.startViewTransition(() => {
 			setNextTheme(newTheme);
 		});
-	}
+	};
 
 	return {
 		theme: (theme ?? "system") as Theme,
