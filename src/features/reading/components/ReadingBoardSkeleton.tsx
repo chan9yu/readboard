@@ -18,6 +18,11 @@ export function ReadingBoardSkeleton() {
 				</div>
 				<Skeleton className="mt-3 h-5 w-72 rounded" />
 			</section>
+			<div aria-hidden="true" className="bg-muted flex gap-1 rounded-xl p-1">
+				{Array.from({ length: 4 }).map((_, i) => (
+					<Skeleton key={i} className="h-9 w-20 rounded-lg" />
+				))}
+			</div>
 			<div aria-hidden="true" className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{Array.from({ length: 12 }).map((_, i) => (
 					<ReadingCardSkeleton key={i} />

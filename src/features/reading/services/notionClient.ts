@@ -40,8 +40,7 @@ export async function fetchReadingList() {
 		};
 	} catch (error) {
 		logger.error("Notion API 조회 실패", {
-			error: error instanceof Error ? error.message : String(error),
-			databaseId: NOTION_DATABASE_ID
+			error: error instanceof Error ? error.message : String(error)
 		});
 		throw error;
 	}

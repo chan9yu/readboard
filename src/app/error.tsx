@@ -25,7 +25,7 @@ export default function Error({ error, reset }: ErrorProps) {
 					<div className="space-y-1">
 						<p className="text-foreground font-semibold">데이터를 불러오는 데 실패했습니다</p>
 						<p className="text-muted-foreground text-sm">
-							{error.message || "Notion API 호출 중 오류가 발생했습니다."}
+							Notion API 호출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.
 						</p>
 					</div>
 					<button
