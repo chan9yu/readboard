@@ -18,7 +18,7 @@ export function Header({ className }: HeaderProps) {
 			)}
 		>
 			<div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
-				<Link href="/" className="flex items-center gap-2.5">
+				<Link href="/" aria-current="page" className="flex items-center gap-2.5">
 					<div className="bg-primary flex size-8 items-center justify-center rounded-lg">
 						<BookOpen aria-hidden="true" className="text-primary-foreground size-4" />
 					</div>

@@ -6,7 +6,7 @@ import { Container } from "@/shared/layouts/Container";
 export default function NotFound() {
 	return (
 		<Container>
-			<section className="py-10">
+			<section aria-label="페이지를 찾을 수 없음" className="py-10">
 				<div className="flex flex-col items-center gap-4 py-10 text-center">
 					<div className="bg-muted flex size-20 items-center justify-center rounded-full">
 						<FileQuestion aria-hidden="true" className="text-muted-foreground size-10" />
@@ -17,7 +17,7 @@ export default function NotFound() {
 					</div>
 					<Link
 						href="/"
-						className="bg-primary text-primary-foreground hover:bg-primary/90 mt-2 inline-flex rounded-full px-6 py-2 text-sm font-medium transition-colors"
+						className="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring focus-visible:ring-offset-background mt-2 inline-flex rounded-full px-6 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
 					>
 						홈으로 돌아가기
 					</Link>
