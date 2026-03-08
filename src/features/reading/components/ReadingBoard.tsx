@@ -31,7 +31,7 @@ export function ReadingBoard({ items }: ReadingBoardProps) {
 	const counts = computeStatusCounts(items);
 	const filteredItems = filterItems(items, currentFilter);
 
-	function handleFilterChange(filter: StatusFilter) {
+	const handleFilterChange = (filter: StatusFilter) => {
 		const params = new URLSearchParams(searchParams.toString());
 		if (filter === "all") {
 			params.delete("status");
@@ -40,7 +40,7 @@ export function ReadingBoard({ items }: ReadingBoardProps) {
 		}
 		const query = params.toString();
 		router.replace(query ? `?${query}` : "/", { scroll: false });
-	}
+	};
 
 	return (
 		<section aria-label="독서 기록 목록" className="pb-16">
@@ -50,9 +50,9 @@ export function ReadingBoard({ items }: ReadingBoardProps) {
 					: `${FILTER_LABELS[currentFilter]} 항목이 없습니다`}
 			</div>
 
-			<StatusTabs currentFilter={currentFilter} counts={counts} tabPanelId={TAB_PANEL_ID} onFilterChange={handleFilterChange} />
+			<StatusTabs currentFilter={currentFilter} counts={counts} onFilterChange={handleFilterChange} />
 
-			<div id={TAB_PANEL_ID} role="tabpanel" aria-labelledby={`tab-${currentFilter}`} tabIndex={0}>
+			<div id={TAB_PANEL_ID} role="tabpanel" aria-labelledby={`tab-${currentFilter}`}>
 				{filteredItems.length > 0 ? (
 					<div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 						{filteredItems.map((item) => (
