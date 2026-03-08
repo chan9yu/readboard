@@ -12,12 +12,12 @@ export default function NotFound() {
 						<FileQuestion aria-hidden="true" className="text-muted-foreground size-10" />
 					</div>
 					<div className="space-y-1">
-						<p className="text-foreground font-semibold">페이지를 찾을 수 없습니다</p>
+						<h1 className="text-foreground font-semibold">페이지를 찾을 수 없습니다</h1>
 						<p className="text-muted-foreground text-sm">요청하신 페이지가 존재하지 않거나 이동되었습니다.</p>
 					</div>
 					<Link
 						href="/"
-						className="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring focus-visible:ring-offset-background mt-2 inline-flex rounded-full px-6 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+						className="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring focus-visible:ring-offset-background mt-2 inline-flex rounded-full px-6 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
 					>
 						홈으로 돌아가기
 					</Link>

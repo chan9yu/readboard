@@ -17,7 +17,7 @@ export function EmptyState({ filter }: EmptyStateProps) {
 				<BookOpen aria-hidden="true" className="text-muted-foreground size-10" />
 			</div>
 			<div className="space-y-1">
-				<p className="text-foreground font-medium">{title}</p>
+				<h2 className="text-foreground text-base font-medium">{title}</h2>
 				<p className="text-muted-foreground text-sm">{description}</p>
 			</div>
 		</div>
