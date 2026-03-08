@@ -20,7 +20,10 @@ export function ReadingCard({ item }: ReadingCardProps) {
 	const titleId = `card-title-${item.id}`;
 
 	return (
-		<article aria-labelledby={titleId} className="bg-card text-card-foreground group border-border/60 hover:shadow-primary/5 flex flex-col overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-lg">
+		<article
+			aria-labelledby={titleId}
+			className="bg-card text-card-foreground group border-border/60 hover:shadow-primary/5 flex flex-col overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-lg"
+		>
 			<div className="bg-muted relative aspect-3/4 w-full overflow-hidden">
 				{item.coverImageUrl ? (
 					<img
@@ -38,7 +41,9 @@ export function ReadingCard({ item }: ReadingCardProps) {
 
 			<div className="flex flex-1 flex-col gap-2 p-4">
 				<div className="flex items-start justify-between gap-2">
-					<h3 id={titleId} className="line-clamp-2 text-sm leading-snug font-semibold">{item.title}</h3>
+					<h3 id={titleId} className="line-clamp-2 text-sm leading-snug font-semibold">
+						{item.title}
+					</h3>
 					<span className={cn("shrink-0 rounded-full px-2 py-0.5 text-xs font-medium", STATUS_STYLES[item.status])}>
 						{item.status}
 					</span>

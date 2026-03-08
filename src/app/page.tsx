@@ -12,8 +12,12 @@ async function ReadingBoardSection() {
 	return (
 		<>
 			<section aria-labelledby="reading-log-heading" className="pt-12 pb-8 sm:pt-16">
-				<p lang="en" className="text-primary text-sm font-medium tracking-wide uppercase">Reading Log</p>
-				<h1 id="reading-log-heading" className="text-foreground text-4xl font-bold tracking-tight sm:text-5xl">독서 기록</h1>
+				<p lang="en" className="text-primary text-sm font-medium tracking-wide uppercase">
+					Reading Log
+				</p>
+				<h1 id="reading-log-heading" className="text-foreground text-4xl font-bold tracking-tight sm:text-5xl">
+					독서 기록
+				</h1>
 				<StatsSummary items={data.items} />
 				<p className="text-muted-foreground mt-3 max-w-lg text-base">노션에 기록한 독서 목록을 한눈에 확인하세요.</p>
 			</section>
