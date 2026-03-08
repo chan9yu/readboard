@@ -22,9 +22,13 @@
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.145 0.015 260);
 
-	--status-reading: oklch(0.65 0.18 250);
-	--status-done: oklch(0.6 0.17 155);
-	--status-planned: oklch(0.65 0.12 45);
+	--status-reading: oklch(0.48 0.18 250);
+	--status-done: oklch(0.45 0.17 155);
+	--status-planned: oklch(0.50 0.12 45);
+
+	--status-reading-text: oklch(0.38 0.16 250);
+	--status-done-text: oklch(0.35 0.15 155);
+	--status-planned-text: oklch(0.40 0.12 45);
 }
 
 .dark {
@@ -51,6 +55,10 @@
 	--status-reading: oklch(0.72 0.15 250);
 	--status-done: oklch(0.7 0.14 155);
 	--status-planned: oklch(0.72 0.1 45);
+
+	--status-reading-text: oklch(0.78 0.13 250);
+	--status-done-text: oklch(0.76 0.12 155);
+	--status-planned-text: oklch(0.78 0.09 45);
 }
 
 /* Tailwind 유틸리티로 등록 */
@@ -78,6 +86,10 @@
 	--color-status-reading: var(--status-reading);
 	--color-status-done: var(--status-done);
 	--color-status-planned: var(--status-planned);
+
+	--color-status-reading-text: var(--status-reading-text);
+	--color-status-done-text: var(--status-done-text);
+	--color-status-planned-text: var(--status-planned-text);
 
 	--font-sans: var(--font-pretendard);
 	--font-mono: var(--font-geist-mono);
